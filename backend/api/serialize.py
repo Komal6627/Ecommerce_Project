@@ -50,6 +50,19 @@ class ProductSerializer(serializers.ModelSerializer):
         reviews = obj.review_set.all()
         serializer = ReviewSerializer(reviews, many=True)
         return serializer.data
+    
+class ShippingAddressSerializer(serializers.ModelSerializer):
+    class  Meta:
+        model = ShippingAddress
+        fields = '__all__'
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+
+
 
     
         
