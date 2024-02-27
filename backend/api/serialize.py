@@ -39,8 +39,17 @@ class ReviewSerializer(serializers.ModelSerializer):
     class  Meta:
       models: Review
       fields = '__all__'
-      
 
+class ProductSerializer(serializers.ModelSerializer):
+    reviews = serializers.SerializerMetaclass(read_only = True)
+    class Meta:
+        model = Product
+        fields = '__all'
+
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return serializer.data
 
     
         
