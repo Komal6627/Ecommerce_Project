@@ -36,7 +36,23 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-    
+
+
+#SHOP API
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        '/api/products/',
+        '/api/products/<id>',
+        '/api/user/',
+        '/api/user/register',
+        '/api/user/login',
+        '/api/user/profiles',
+    ]
+
+    return Response(routes)
+
+
     
 
 
