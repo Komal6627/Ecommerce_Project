@@ -34,6 +34,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
     
+ #class base view for login   
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -98,6 +99,8 @@ def deleteUser(request, pk):
     userForDeletion = User.objects.get(id = pk)
     userForDeletion.delete()
     return Response("User was deleted")
+
+
 
 
 
