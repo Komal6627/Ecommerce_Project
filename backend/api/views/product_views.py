@@ -37,3 +37,19 @@ def getProducts(request):
     
     serializer = ProductSerializer(products, many = True)
     return Response({'products': serializer.data, 'page': page, 'pages':paginator.num_pages})
+
+
+#Top Products
+
+@api_view(['GET'])
+def getToProduct(request):
+    products = Product.objects.filter(rating__gte=4).order_by('-rating')[:5]
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+#Get single products
+def getProduct(request, pk):
+    product = Product.objects.get(_id = pk)
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
+
