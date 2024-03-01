@@ -53,3 +53,50 @@ def getProduct(request, pk):
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createProductReview(request, pk):  # sourcery skip: sum-comprehension, use-named-expression
+    user = request.user
+    product = Product.objects.get(_id = pk)
+    data = request.data
+
+    #1. Review already exists
+    alreadyExist = product.review_set.filter(user = user).exist()
+
+    if alreadyExist:
+        content =  {'details': 'Product already review'}
+        return Response(content, status = status.HTTP_400_BAD_REQUEST)
+    
+    # 2. No Rating or 0
+    elif data['rating'] == 0:
+        content = {'detail': 'Please select a rating'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    
+
+    # 3. Create Review
+    else:
+        review = Review.objects.create(
+            user = user,
+            product = product,
+            name = user.first_name,
+            rating = data['rating'],
+            comment = data['comment'],
+        )
+        reviews = product.review_set.all()
+        product.numReviews = len(reviews)
+        
+        total = 0
+
+        for i in reviews:
+            total += i.rating
+        product.rating = total/len(reviews)
+        product.save()
+        return Response('Review Added')
+
+        
+
+
+
+
+
