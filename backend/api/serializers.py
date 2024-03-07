@@ -41,10 +41,10 @@ class ReviewSerializer(serializers.ModelSerializer):
       fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    reviews = serializers.SerializerMetaclass(read_only = True)
+    reviews = serializers.SerializerMethodField(read_only = True)
     class Meta:
         model = Product
-        fields = '__all'
+        fields = '__all__'
 
     def get_reviews(self, obj):
         reviews = obj.review_set.all()

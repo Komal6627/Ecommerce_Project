@@ -1,10 +1,9 @@
 from django.urls import path
-from api.views import order_view as views
+from api.views.order_views import *
 
-urlpattern = [
-    path('add/', views.addOrderItems, name="orders-add"),
-    path('myorders/',views.getMyOrders, name="myorders"),
-    path('<str:pk>/', views.getOrderById, name="user-order"),
-    path('<str:pk>/pay/', views.updateOrderToPaid, name="pay"),  
+urlpatterns = [
+    path('add/', addOrderItem, name="orders-add"),
+    path('myorders/', getMyOrders, name="myorders"),
+    path('<str:pk>/', getOrderById, name="user-order"),
+    path('<str:pk>/pay/', updateOrderToPaid, name="pay"),  
 ]
- 

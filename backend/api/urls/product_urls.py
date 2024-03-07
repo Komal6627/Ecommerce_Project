@@ -1,11 +1,11 @@
 from django.urls import path
-from api.views import product_views as views
+from api.views.product_views import *
 
 urlpatterns = [
-    path('', views.getProducts, name = "products"),
-    path('<str:pk>/reviews/', views.createProductReview, name="create-review"),
-    path('top/', views.getTopProduct, name="top-product"),
-    path('<str:pk>', views.getProduct, name="product")
+    path('', getProducts, name = "products"),
+    path('<str:pk>/reviews/', createProductReview, name="create-review"),
+    path('top/', getTopProduct, name="top-product"),
+    path('<str:pk>', getProduct, name="product")
 ]
 
 

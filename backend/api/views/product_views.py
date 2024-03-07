@@ -16,7 +16,7 @@ def getProducts(request):
     if query is None:
         query = ''
     
-    products = Product.objects.filter(name__iscontains = query).order_by('_id')
+    products = Product.objects.filter(name__icontains = query).order_by('_id')
     page = request.query_params.get('page')
     if page is None or page.strip() == '':
         page = 1
@@ -42,7 +42,7 @@ def getProducts(request):
 #Top Products
 
 @api_view(['GET'])
-def getToProduct(request):
+def getTopProduct(request):
     products = Product.objects.filter(rating__gte=4).order_by('-rating')[:5]
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
@@ -94,7 +94,8 @@ def createProductReview(request, pk):  # sourcery skip: sum-comprehension, use-n
         product.save()
         return Response('Review Added')
 
-        
+
+
 
 
 
