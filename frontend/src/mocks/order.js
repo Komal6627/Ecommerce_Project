@@ -99,5 +99,5 @@ class OrderAPI {
     }
 }
 
-const  OrderAPI = new OrderAPI();
-export default OrderAPI;
+const  orderAPI = new OrderAPI();
+export default orderAPI;
