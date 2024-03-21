@@ -53,6 +53,6 @@ class ProductAPI{
     }
 }
 
-const ProductAPI = new ProductAPI();
+const productAPI = new ProductAPI();
 
-export default ProductAPI;
+export default productAPI;

@@ -1,6 +1,6 @@
 import productAPI from "../../mocks/product";
 import { createSlice } from "@reduxjs/toolkit";
-const intialState = {
+const initialState = {
     productList : {products : [], loading : false, props : null, page:0, pages: 0},
     productDetails : {product: {reviews: []}, loading: false, error: null},
     createReview : {loading: false, error: null, success: false},
@@ -9,7 +9,7 @@ const intialState = {
 
 const productSlice = createSlice({
     name: "product",
-    intialState,
+    initialState,
     reducers:{
         productListRequest(state){
             state.productList.loading = true;
@@ -74,10 +74,11 @@ export const  {
     productDetailsFailure,
     createReviewRequest,
     createReviewFailure,
+    createReviewSuccess,
     productTopRequest,
     productTopSuccess,
     productTopFailure
-} = productSlice.action;
+} = productSlice.actions;
 
 export const fetchProductList = (keyword, pageNumber = '') => async(dispatch) => {
     try {
@@ -102,7 +103,6 @@ export const fetchUserDetails = (id) => async(dispatch) =>{
 export const createReview = (productId, review) => async(dispatch) =>{
     try {
         dispatch(createReviewRequest());
-
         await productAPI.createProductReview(productId, review);
         dispatch(createReviewSuccess());
     } catch (error) {
