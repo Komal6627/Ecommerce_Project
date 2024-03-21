@@ -1,5 +1,5 @@
 import productAPI from "../../mocks/product";
-
+import { createSlice } from "@reduxjs/toolkit";
 const intialState = {
     productList : {products : [], loading : false, props : null, page:0, pages: 0},
     productDetails : {product: {reviews: []}, loading: false, error: null},
@@ -120,5 +120,5 @@ export const fetchTopRatedProducts = () => async(dispatch) =>{
     }
 }
 
-export const {reducer} =productSlice;
+export const {reducer} =productSlice
 export default productSlice;
