@@ -19,13 +19,13 @@ import { Breadcrumbs, Typography } from '@mui/material';
 function CheckoutSteps({ step1, step2, step3 }) {
     const theme = useTheme();
 
-    const StyledLink = styled(Link)({
+    const StyledLink = styled('a')({
         display: "flex",
         color: theme.palette.grey[600],
         textDecoration: "none",
     });
 
-    const StyledActiveLink = styled(Link)({
+    const StyledActiveLink = styled('a')({
         color: theme.palette.primary.main,
     });
 
