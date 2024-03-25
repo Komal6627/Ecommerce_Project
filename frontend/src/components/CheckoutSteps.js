@@ -16,26 +16,26 @@ import { Breadcrumbs, Typography } from '@mui/material';
 
 
 
-function CheckoutSteps({ step1, step2, step3 }) {
+const CheckoutSteps= ({ step1, step2, step3 })=> {
     const theme = useTheme();
 
-    const StyledLink = styled('a')({
+    const StyledLink = styled(Link)({
         display: "flex",
         color: theme.palette.grey[600],
         textDecoration: "none",
     });
 
-    const StyledActiveLink = styled('a')({
+    const StyledActiveLink = styled(Link)({
         color: theme.palette.primary.main,
     });
 
     return (
         <Breadcrumbs aria-label="breadcrumb">
-            <StyledLink href="/login" className={step1 ? StyledActiveLink : ""}>
+            <StyledLink to="/login" className={step1 ? StyledActiveLink : ""}>
                 {step1 ? "Login" : "Login (Incomplete)"}
             </StyledLink>
 
-            <StyledLink href="/shipping" className={step2 ? StyledActiveLink : ""}>
+            <StyledLink to="/shipping" className={step2 ? StyledActiveLink : ""}>
                 {step2 ? "Shipping" : "Shipping (Incomplete)"}
             </StyledLink>
 
