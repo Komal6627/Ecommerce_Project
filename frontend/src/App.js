@@ -5,6 +5,7 @@ import FormContainer from './components/FormContainer';
 import Header from './components/Header';
 import Loader from './components/Loader';
 import Message from './components/Message';
+import Paginate from './components/Paginate';
 
 
 const App = () => {
@@ -14,7 +15,9 @@ const App = () => {
             <Footer/>
             <FormContainer/> */}
             <Header/>
-            <Message/>
+            <Paginate/>
+            {/* <Message/> */}
+
             {/* <Loader/> */}
         </div>
     );

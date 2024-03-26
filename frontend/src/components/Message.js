@@ -17,3 +17,4 @@ const Message = ({variant, children}) =>{
 }
 
 export default Message
+
