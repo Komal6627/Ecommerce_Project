@@ -13,7 +13,7 @@ const Header = () =>{
     const theme = useTheme();
 
     const Appbar = styled(AppBar)({
-        backgroundColor: '#1565c0',
+         backgroundColor : "#039be5"
     })
 
     const StyleDiv = styled('div')({
