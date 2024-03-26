@@ -3,6 +3,8 @@ import CheckoutSteps from './components/CheckoutSteps'; // Correct import for Ch
 import Footer from './components/Footer';
 import FormContainer from './components/FormContainer';
 import Header from './components/Header';
+import Loader from './components/Loader';
+import Message from './components/Message';
 
 
 const App = () => {
@@ -12,6 +14,8 @@ const App = () => {
             <Footer/>
             <FormContainer/> */}
             <Header/>
+            <Message/>
+            {/* <Loader/> */}
         </div>
     );
 };
