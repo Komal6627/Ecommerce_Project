@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Loader from './components/Loader';
 import Message from './components/Message';
 import Paginate from './components/Paginate';
+import Rating from './components/Rating';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             {/* <Message/> */}
 
             {/* <Loader/> */}
+            {/* <Rating/> */}
         </div>
     );
 };

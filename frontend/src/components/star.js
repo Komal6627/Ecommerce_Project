@@ -19,7 +19,7 @@ const Star = () =>{
     const StyledP = styled('p')({
     color: "white",
     backgroundColor: "black",
-    padding: "10px",
+    padding: "5px",
     })
 
     return (

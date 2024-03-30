@@ -73,7 +73,7 @@ const Header = () =>{
                     <div>
                         <IconButton aria-label="show-cart-items" color="inherit" component={Link} to="/cart" style={{color: "white"}}> 
                             Shoppingcart Component
-                            <Star/>
+                            {/* <Star/> */}
                         </IconButton>
                     </div>
                     {console.log(userDetails)}
