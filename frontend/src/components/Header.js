@@ -7,13 +7,17 @@ import { logout } from "../redux/slices/userSlice";
 import { useState } from "react";
 import logo from "../images/logo.png"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SearchBox from "./Searchbox";
+import Star from "./star";
 
 
 const Header = () =>{
     const theme = useTheme();
 
     const Appbar = styled(AppBar)({
-         backgroundColor : "#039be5"
+        //  backgroundColor : "#039be5"
+        backgroundColor: "#6200ea"
+      //  backgroundColor: "#448aff"
     })
 
     const StyleDiv = styled('div')({
@@ -61,7 +65,7 @@ const Header = () =>{
                     </StyledLink>
 
                     <div style={{marginLeft: "5vw"}}>
-                        {/* <SearchBox/> */}Search Box Component
+                       <SearchBox/>
                     </div>
 
                     <StyleDiv/>
@@ -69,6 +73,7 @@ const Header = () =>{
                     <div>
                         <IconButton aria-label="show-cart-items" color="inherit" component={Link} to="/cart" style={{color: "white"}}> 
                             Shoppingcart Component
+                            <Star/>
                         </IconButton>
                     </div>
                     {console.log(userDetails)}
