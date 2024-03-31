@@ -8,6 +8,7 @@ import Message from './components/Message';
 import Paginate from './components/Paginate';
 import Rating from './components/Rating';
 import ProductCarousel from './components/ProductCarousel';
+import Product from './components/Product';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
 
             {/* <Loader/> */}
             {/* <Rating/> */}
+            <Product/>
         </div>
     );
 };
