@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 const Product =({product}) =>{
     return (
         <Paper sx={{maxWidth: 345, margin: "5px"}}>
+            {product && (
             <CardActionArea component={Link} to={`/product/${product._id}`}>
                 <CardMedia component="img" sx={{objectFit: "contain", maxHeight: 140}} image={product.image} alt={product.name}/>
                 <CardContent style={{textAlign:"center"}}>
@@ -19,6 +20,7 @@ const Product =({product}) =>{
                     <Typography variant="h6" component="div">₹{product.price}</Typography>
                 </CardContent>
             </CardActionArea>
+            )}
         </Paper>
     )
 }
