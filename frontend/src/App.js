@@ -1,30 +1,28 @@
 import React from 'react';
-import CheckoutSteps from './components/CheckoutSteps'; // Correct import for CheckoutSteps
-import Footer from './components/Footer';
-import FormContainer from './components/FormContainer';
+import { Container } from "react-bootstrap"
 import Header from './components/Header';
-import Loader from './components/Loader';
-import Message from './components/Message';
-import Paginate from './components/Paginate';
-import Rating from './components/Rating';
-import ProductCarousel from './components/ProductCarousel';
-import Product from './components/Product';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Footer from "./components/Footer"
+
 
 
 const App = () => {
     return (
-        <div>
-            {/* <CheckoutSteps />
-            <Footer/>
-            <FormContainer/> */}
-            <Header/>
-            <Paginate/>
-            {/* <Message/> */}
-
-            {/* <Loader/> */}
-            {/* <Rating/> */}
-            <Product/>
-        </div>
+        <>
+            <div style={{position:"sticky", top: 0, zIndex:"100"}}>
+                <Header/>
+            </div>
+            <Container>
+                <main className='py-3'>
+                   <Routes>
+                        <Route exact path='/' Component={Home}/>
+                        <Route  path='/page/:pageNumber' Component={Home}/>
+                   </Routes>
+                </main>
+            </Container>
+            <Footer />
+        </>
     );
 };
 
