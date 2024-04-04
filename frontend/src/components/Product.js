@@ -6,7 +6,7 @@ const Product =({product}) =>{
         <Paper sx={{maxWidth: 345, margin: "5px"}}>
             {product && (
             <CardActionArea component={Link} to={`/product/${product._id}`}>
-                <CardMedia component="img" sx={{objectFit: "contain", maxHeight: 140}} image={product.image} alt={product.name}/>
+                <CardMedia component="img" sx={{objectFit: "contain", maxHeight: 140}} image={product.images} alt={product.name}/>
                 <CardContent style={{textAlign:"center"}}>
                     <Typography gutterBottom variant="h6" component="div">  
                         {product.name}
