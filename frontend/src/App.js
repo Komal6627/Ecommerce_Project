@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Footer from "./components/Footer"
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 
 
@@ -20,6 +21,7 @@ const App = () => {
                         <Route exact path='/' Component={Home}/>
                         <Route  path='/page/:pageNumber' Component={Home}/>
                         <Route path='/login' Component={Login}/>
+                        <Route path='/register' Component={Register}/>
                    </Routes>
                 </main>
             </Container>
