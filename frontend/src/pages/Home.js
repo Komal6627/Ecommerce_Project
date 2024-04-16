@@ -10,7 +10,7 @@ import Product from "../components/Product"
 import Paginate from "../components/Paginate"
 import { useLocation } from "react-router-dom";
 
-const Home = ({history}) =>{
+const Home = () =>{
     const dispatch = useDispatch();
     const productList = useSelector((state) => state.product.productList);
     const topRatedProducts = useSelector((state) => state.product.topRatedProducts)

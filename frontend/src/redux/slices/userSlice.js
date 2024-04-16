@@ -3,12 +3,25 @@ import userApi from "../../mocks/user";
 
 const storedUserInfo = localStorage.getItem("userInfo");
 
-const initialState = {
-    userDetails : storedUserInfo ? JSON.parse(storedUserInfo) : null,
-    loading : false,
-    error : null,
+let initialUserDetails = null;
 
+if (storedUserInfo !== "undefined" && storedUserInfo !== null && storedUserInfo !== "") {
+    try {
+        initialUserDetails = JSON.parse(storedUserInfo);
+    } catch (error) {
+        console.error("Error parsing storedUserInfo:", error);
+        // Handle the error, e.g., set initialUserDetails to null or a default value
+    }
 }
+
+  
+
+  const initialState = {
+    userDetails: initialUserDetails,
+    loading: false,
+    error: null,
+  };
+
 
 const userSlice = createSlice({
     name : 'user',
@@ -18,7 +31,7 @@ const userSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
-        loginSucess(state, action){
+        loginSuccess(state, action){
             state.userDetails = action.payload;
             state.loading = false;
             state.error = null;
@@ -32,7 +45,7 @@ const userSlice = createSlice({
             state.loading = true;
             state.error = null;
           },
-        getUserDetailSucess(state, action){
+        getUserDetailSuccess(state, action){
             state.userDetails = action.payload;
             state.loading = false;
             state.error = null;
@@ -95,10 +108,10 @@ const userSlice = createSlice({
 
 export const  {
     loginStart,
-    loginSucess,
+    loginSuccess,
     loginFailure,
     getUserDetailsStart,
-    getUserDetailSucess,
+    getUserDetailSuccess,
     getUserDetailFailure,
     createUserStart,
     createUserSuccess,
@@ -112,61 +125,61 @@ export const  {
     logoutSuccess
 } = userSlice.actions;
 
-export const login = (email, password) => async(dispath) => {
+export const login = (email, password) => async(dispatch) => {
     try {
-        dispath(loginStart());
+        dispatch(loginStart());
         const user = await userApi.login(email, password);
-        dispath(loginSucess(user));
+        dispatch(loginSuccess(user));
     } catch (error) {
-        dispath(loginFailure(error.message));
+        dispatch(loginFailure(error.message));
     }
 }
 
-export const fetchUserDetails = (userId) => async(dispath) => {
+export const fetchUserDetails = (userId) => async(dispatch) => {
     try {
-        dispath(getUserDetailsStart());
+        dispatch(getUserDetailsStart());
         const userDetails = await userApi.getUserDetails(userId);
-        dispath(getUserDetailSucess(userDetails));
+        dispatch(getUserDetailSuccess(userDetails));
     } catch (error) {
-        dispath(getUserDetailFailure(error.message));
+        dispatch(getUserDetailFailure(error.message));
     }
 }
 
 
-export const createUser = (name, email, password) => async (dispath) => {
+export const createUser = (name, email, password) => async (dispatch) => {
     try {
-        dispath(createUserStart());
+        dispatch(createUserStart());
         const user = await userApi.createUser(name, email, password);
-        dispath(createUserSuccess(user));
-        dispath(loginSucess(user));
+        dispatch(createUserSuccess(user));
+        dispatch(loginSuccess(user));
     } catch (error) {
-        dispath(createUserFailure(error.message));
+        dispatch(createUserFailure(error.message));
     }
 }
 
-export const updateUser = (userId, updateData) => async (dispath) =>{
+export const updateUser = (userId, updateData) => async (dispatch) =>{
     try {
-        dispath(updateUserStart());
+        dispatch(updateUserStart());
         const updatedUser = await userApi.updateUser(userId, updateData);
-        dispath(updateUserSuccess(updateUser))
+        dispatch(updateUserSuccess(updatedUser))
     } catch (error) {
-        dispath(updateUserFailure(error.message));     
+        dispatch(updateUserFailure(error.message));     
     }
 }
 
 
-export const deleteUser =(userId) => async(dispath) =>{
+export const deleteUser =(userId) => async(dispatch) =>{
     try {
-        dispath(deleteUserStart());
+        dispatch(deleteUserStart());
         await userApi.deleteUser(userId);
-        dispath(deleteUserSuccess())
+        dispatch(deleteUserSuccess())
     } catch (error) {
-        dispath(deleteUserFailure(error.message));
+        dispatch(deleteUserFailure(error.message));
     }
 }
 
-export const logout = () => (dispath) =>{
-    dispath(userSlice.actions.logoutSuccess());    
+export const logout = () => (dispatch) =>{
+    dispatch(userSlice.actions.logoutSuccess());    
 }
 
 export const {reducer} = userSlice;

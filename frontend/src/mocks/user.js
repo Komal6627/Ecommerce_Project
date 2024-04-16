@@ -11,7 +11,7 @@ class UserAPI {
         },
       };
 
-      const { data } = await axios.get(`/api/user/`, config);
+      const { data } = await axios.get(`/api/users/`, config);
       return data;
     } catch (error) {
       throw error.respose && error.respose.data.detail
@@ -78,14 +78,18 @@ class UserAPI {
 
     async login(email, password){
         try {
-            const {data} = await axios.post('/api/users/login', {username: email, password: password})
-            return data;
+          const response = await axios.post('/api/users/login/', { username: email, password: password });
+          return response.data;
         } catch (error) {
-            throw error.respose && error.respose.data.detail
-            ? error.respose.data.detail
-            : error.message;
+          if (error.response && error.response.data.detail) {
+            throw error.response.data.detail; // Throw the error message from the server response
+          } else {
+            throw error.message; // Throw the generic error message if response or response.data.detail is undefined
+          }
         }
     }
+
+    
 }
 
 const userApi = new UserAPI();

@@ -6,25 +6,27 @@ import { Button, Grid, TextField, Typography, useTheme } from "@mui/material"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
 import styled from "@emotion/styled"
+import {login} from "../redux/slices/userSlice"
+import {useNavigate} from "react-router-dom"
 
-const Login = ({history}) => {
+const Login = () => {
      const theme = useTheme();
 
-     const StyledForm = styled('form')(
-        {
-            width: "100% ",
-            marginTop: theme.spacing(1)
-        },
-     )
-     const StyledButton = styled(Button)(
-           { 
-            margin: theme.spacing(3,0,2)
-        }
+    //  const StyledForm = styled('form')(
+    //     {
+    //         width: "100% ",
+    //         marginTop: theme.spacing(1)
+    //     },
+    //  )
+    //  const StyledButton = styled(Button)(
+    //        { 
+    //         margin: theme.spacing(3,0,2)
+    //     }
         
-     )
+    //  )
       const [email, setEmail] =   useState()
       const [password, setPassword] = useState()
-
+      const navigate = useNavigate()
       const dispatch = useDispatch()
 
     const location = useLocation() ;
@@ -35,14 +37,15 @@ const Login = ({history}) => {
 
     useEffect(() => {
         if(userDetails){
-            history.replace(redirect)
+            navigate(redirect);
         }
-    },[history, userDetails, redirect])
+    },[navigate, userDetails, redirect])
 
     const submitHandler = (e) =>{
         e.preventDefault();
         console.log(email, password);
-        dispatch(email, password);        
+        // dispatch(email, password); 
+        dispatch(login({ email, password }));       
     }
 
     return(
@@ -52,7 +55,7 @@ const Login = ({history}) => {
             </Typography>
             {error && <Message></Message>}
             {loading && <Loader/>}
-            <StyledForm onSubmit={submitHandler}> 
+            <form onSubmit={submitHandler} style={{width: "100%", marginTop: "3px"}}> 
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField variant="filled" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -63,9 +66,9 @@ const Login = ({history}) => {
                     </Grid>
                 </Grid>
 
-                <StyledButton type="submit" fullWidth variant="outline" color="primary">
+                <button type="submit" fullWidth variant="outline" style={{color:"blue"}}>
                     Sign In
-                </StyledButton>
+                </button>
 
                 <Grid container justify = "flex-start">
                     <Grid item> 
@@ -73,7 +76,7 @@ const Login = ({history}) => {
                         <Link to={redirect ? `/register?redirect=${redirect}`: "/register"} variant='body2'> Register</Link>
                     </Grid>
                 </Grid>
-            </StyledForm>
+            </form>
         </FormContainer>
     )
 }
