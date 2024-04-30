@@ -76,20 +76,16 @@ class UserAPI {
         }
     }
 
-    async login(email, password){
-        try {
-          const response = await axios.post('/api/users/login/', { username: email, password: password });
-          return response.data;
-        } catch (error) {
-          if (error.response && error.response.data.detail) {
-            throw error.response.data.detail; // Throw the error message from the server response
-          } else {
-            throw error.message; // Throw the generic error message if response or response.data.detail is undefined
-          }
-        }
-    }
-
-    
+    async login(email, password) {
+      try {
+        const { data } = await axios.post('/api/users/login/',{ username: email, password: password });
+        return data;
+      } catch (error) {
+        throw error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message;
+      }
+    }    
 }
 
 const userApi = new UserAPI();

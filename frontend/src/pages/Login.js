@@ -24,8 +24,8 @@ const Login = () => {
     //     }
         
     //  )
-      const [email, setEmail] =   useState()
-      const [password, setPassword] = useState()
+      const [email, setEmail] =   useState('')
+      const [password, setPassword] = useState('')
       const navigate = useNavigate()
       const dispatch = useDispatch()
 
@@ -41,12 +41,24 @@ const Login = () => {
         }
     },[navigate, userDetails, redirect])
 
-    const submitHandler = (e) =>{
+    // const submitHandler = (e) =>{
+    //     e.preventDefault();
+    //     console.log(email, password);
+    //     // dispatch(email, password); 
+    //     dispatch(login({ email, password }));       
+    // }
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(email, password);
-        // dispatch(email, password); 
-        dispatch(login({ email, password }));       
-    }
+        try {
+          console.log(email, password);
+          await dispatch(login(email, password));
+        } catch (error) {
+          console.error('Login error:', error);
+          // Handle login error (e.g., display error message to the user)
+        }
+      };
+      
 
     return(
         <FormContainer>
@@ -58,15 +70,15 @@ const Login = () => {
             <form onSubmit={submitHandler} style={{width: "100%", marginTop: "3px"}}> 
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <TextField variant="filled" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <TextField variant="filled" required  id="email" label="Email Address" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField variant="filled" required fullWidth id="password" name="password"  label= "Password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <TextField variant="filled" required  id="password" name="password"  label= "Password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </Grid>
                 </Grid>
 
-                <button type="submit" fullWidth variant="outline" style={{color:"blue"}}>
+                <button type="submit"  variant="outline" style={{color:"blue"}}>
                     Sign In
                 </button>
 

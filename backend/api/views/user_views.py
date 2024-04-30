@@ -45,10 +45,10 @@ def getRoutes(request):
     routes = [
         '/api/products/',
         '/api/products/<id>',
-        '/api/user/',
-        '/api/user/register',
-        '/api/user/login',
-        '/api/user/profiles',
+        '/api/users/',
+        '/api/users/register',
+        '/api/users/login',
+        '/api/users/profiles',
     ]
 
     return Response(routes)
