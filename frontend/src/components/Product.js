@@ -2,11 +2,22 @@ import { CardActionArea, CardContent, CardMedia, Paper, Rating, Typography } fro
 import { Link } from "react-router-dom"
 
 const Product =({product}) =>{
+    console.log("Product Images:", product.image); 
     return (
         <Paper sx={{maxWidth: 345, margin: "5px"}}>
             {product && (
             <CardActionArea component={Link} to={`/product/${product._id}`}>
-                <CardMedia component="img" sx={{objectFit: "contain", maxHeight: 140}} image={product.images} alt={product.name}/>
+                {product.image ? (
+                     <img
+                     src={product.image}
+                     alt={product.name}
+                     style={{ objectFit: "contain", maxHeight: 140, width: "100%" }}
+                   />
+                ) : (
+                <div style={{ height: 140, backgroundColor: "lightgray" }}>
+                         No Image Available
+                </div>
+            )}
                 <CardContent style={{textAlign:"center"}}>
                     <Typography gutterBottom variant="h6" component="div">  
                         {product.name}

@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
+import Shipping from './pages/Shipping';
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
                         <Route path='/register' Component={Register}/>
                         <Route path='/cart/:id?' Component={Cart}/>
                         <Route path='/product/id' Component={Product}></Route>
+                        <Route path='/shipping' Component={Shipping}></Route>
                    </Routes>
                 </main>
             </Container>

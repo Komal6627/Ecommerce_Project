@@ -43,8 +43,7 @@ const ShippingScreen = () =>{
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId="address">
                     <Form.label>Address</Form.label>
-                    <Form.Control required type="text" placeholder="Enter Address" value={address ? address:""} onChange={(e) => setAddress(e.target.value)}>
-
+                    <Form.Control required type="text" placeholder="Enter Address" value={address ? address:"oo"} onChange={(e) => setAddress(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
             </Form>
