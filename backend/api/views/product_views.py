@@ -1,13 +1,13 @@
 from django.core import paginator
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from api.models import *
 from api.serializers import ProductSerializer
+from rest_framework.response import Response
+from rest_framework import status
 
 # GET all the products with query
 @api_view(['GET'])
@@ -48,10 +48,14 @@ def getTopProduct(request):
     return Response(serializer.data)
 
 #Get single products
+@api_view(['GET'])
 def getProduct(request, pk):
-    product = Product.objects.get(_id = pk)
-    serializer = ProductSerializer(product, many=False)
-    return Response(serializer.data)
+    try:
+        product = Product.objects.get(_id=pk)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])

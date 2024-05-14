@@ -16,7 +16,7 @@ class ProductAPI{
 
     async getProductDetails(productId){
         try {
-            const { data } = await axios.get(`/api/product/${productId}`);
+            const { data } = await axios.get(`/api/products/${productId}`);
             console.log(data);
             return data;
         } catch (error) {
