@@ -8,14 +8,28 @@ import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 
 const root = createRoot(document.getElementById('root'));
-root.render(
-    <React.StrictMode>
-    <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </Provider>
-    </React.StrictMode>
-);
+// root.render(
+//     <React.StrictMode>
+//     <Provider store={store}>
+//         <BrowserRouter>
+//             <App/>
+//         </BrowserRouter>
+//     </Provider>
+//     </React.StrictMode>
+// );
 
+
+// Create a component that wraps your entire application
+const Root = () => (
+    <React.StrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>
+  );
+  
+  
+  root.render(<Root />);
 reportWebVitals();

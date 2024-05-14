@@ -1,53 +1,69 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {createReview, fetchUserDetails} from "../redux/slices/productSlice"
-import { Form, Link, useNavigate } from "react-router-dom";
+import { createReview, fetchUserDetails } from "../redux/slices/productSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../redux/slices/cartSlice";
 import Message from "../components/Message";
-import Rating from '../components/Rating';
-import { Button, Card, Col, ListGroup,Row, Image } from "react-bootstrap";
+import Rating from "../components/Rating";
+import {
+  Button,
+  Card,
+  Col,
+  ListGroup,
+  Row,
+  Image,
+  Form,
+} from "react-bootstrap";
 import Loader from "../components/Loader";
-const Product = ({match}) =>{
-    const [qty, setQty] = useState(1);
-    const [ rating, setRating] = useState(0)
-    const [comment, setComment] = useState("");
+const Product = ({ match }) => {
+  const { id } = useParams();
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate
+  const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
-    const productDetails = useSelector((state) => state.product.productDetails);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const {product, loading, error} = productDetails;
-    console.log(productDetails);
+  const productDetails = useSelector((state) => state.product.productDetails);
 
-    const userLogin = useSelector((state) => state.user);
+  const { product, loading, error } = productDetails;
+  console.log(productDetails);
 
-    const {userDetails} = userLogin;
+  const userLogin = useSelector((state) => state.user);
 
-    const productReviewCreate = useSelector((state) => state.product.createReview);
+  const { userDetails } = userLogin;
 
-    const {loading: loadingProductReview, error:errorProductReview, successProductReview} = productReviewCreate;
+  const productReviewCreate = useSelector(
+    (state) => state.product.createReview
+  );
 
-    useEffect(() =>{
-        if (successProductReview) {
-            setRating(0);
-            setComment("");
-        }
-        dispatch(fetchUserDetails(match.params.id));
-    }, [dispatch, match, successProductReview])  
+  const {
+    loading: loadingProductReview,
+    error: errorProductReview,
+    successProductReview,
+  } = productReviewCreate;
 
-    const addToCartHandler = () => {
-        navigate(`/cart/${match.params.id}?qty=${qty}`);
-        dispatch(addToCart(match.params.id, qty));
-    };
-
-    const submitHandler = (e) =>{
-        e.preventDefault();
-        dispatch(createReview(match.params.id, {rating, comment}));
+  useEffect(() => {
+    if (successProductReview) {
+      setRating(0);
+      setComment("");
     }
+    dispatch(fetchUserDetails(id));
+  }, [dispatch, id, successProductReview]);
 
-    return(
-        <div>
+  const addToCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`);
+    dispatch(addToCart(id, qty));
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createReview(id, { rating, comment }));
+  };
+
+  return (
+    <div className="m-10 ">
       <Link to="/" className="btn btn-light my-3">
         Go Back
       </Link>
@@ -107,24 +123,27 @@ const Product = ({match}) =>{
                   </ListGroup.Item>
 
                   {product.countInStock > 0 && (
-                    <ListGroup.Item >
-                    <Row>
-                      <Col>Quantity:</Col>
-                      <Col>
-                        <Form.Control style={{  border:"2px solid black"}}
-                          as="select"
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(product.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Quantity:</Col>
+                        <Col>
+                          <Form.Control
+                            style={{ border: "2px solid black" }}
+                            as="select"
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
                   )}
                   <ListGroup.Item>
                     <Button
@@ -210,6 +229,6 @@ const Product = ({match}) =>{
       )}
     </div>
   );
-}
+};
 
-export default Product
+export default Product;

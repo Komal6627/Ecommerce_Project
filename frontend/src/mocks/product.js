@@ -16,7 +16,7 @@ class ProductAPI{
 
     async getProductDetails(productId){
         try {
-            const { data } = await axios.get(`/api/prodcut/${productId}`);
+            const { data } = await axios.get(`/api/product/${productId}`);
             console.log(data);
             return data;
         } catch (error) {
@@ -34,7 +34,7 @@ class ProductAPI{
                 }
             }
 
-            const {data} = await axios.post(`/api/prodcuts/${productId}/review/`, review, config);
+            const {data} = await axios.post(`/api/product/${productId}/review/`, review, config);
 
             return data;
 

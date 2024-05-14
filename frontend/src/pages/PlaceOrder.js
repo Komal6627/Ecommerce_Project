@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../redux/slices/orderSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { Col, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, ListGroup, Row } from "react-bootstrap";
 import Message from "../components/Message";
 import { Card } from "@mui/material";
 
@@ -107,7 +107,41 @@ const PlaceOrder = () =>{
                 
                 <Col md={4}>
                     <Card>
-                        <ListGroup></ListGroup>
+                        <ListGroup variant="flush">
+                            <ListGroup.Item>
+                                <h2>Order Summary</h2>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Row>
+                                    <Col>Items:</Col>
+                                    <Col>₹{itemsPrice.toFixed(2)}</Col>
+                                </Row>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Row>
+                                    <Col>Shipping</Col>
+                                    <Col>₹{shippingPrice.toFixed(2)}</Col>
+                                </Row>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Row>
+                                    <Col>Tax</Col>
+                                    <Col>₹{taxPrice}</Col>
+                                </Row>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Row>
+                                    <Col>Total:</Col>
+                                    <Col>₹{totalPrice}</Col>
+                                </Row>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                {error && <Message variant="danger">{error}</Message>}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Button type="button" className="w-100" disabled={cart.cartItems.length === 0} onClick={PlaceOrder}>Place Order</Button>
+                            </ListGroup.Item>
+                        </ListGroup>
                     </Card>
                 </Col>
 
