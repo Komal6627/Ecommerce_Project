@@ -10,6 +10,8 @@ import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Shipping from './pages/Shipping';
 import Order from './pages/Order';
+import PlaceOrder from './pages/PlaceOrder';
+import CheckoutSteps from './components/CheckoutSteps';
 
 
 
@@ -31,6 +33,8 @@ const App = () => {
                         <Route path='/product/:id' Component={Product}></Route>
                         <Route path='/shipping' Component={Shipping}></Route>
                         <Route path="/orderDetail" Component={Order} />
+                        <Route path='/placeorder' Component={PlaceOrder}></Route>
+                        <Route path='/check' Component={CheckoutSteps}/>
                    </Routes>
                 </main>
             </Container>

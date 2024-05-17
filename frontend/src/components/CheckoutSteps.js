@@ -3,30 +3,18 @@ import  styled  from '@emotion/styled';
 import { useTheme } from '@mui/material/styles';
 import { Breadcrumbs, Typography } from '@mui/material';
 
-// export const useStyles = styled((theme ) => ({
-//     link: {
-//         display: "flex",
-//         color: theme.palette.grey[600],
-//         textDecoration: "none",
-//     },
-//     activeLink: {
-//         color: theme.palette.primary.main,
-//     },
-// }));
-
-
 
 const CheckoutSteps= ({ step1, step2, step3 })=> {
     const theme = useTheme();
 
     const StyledLink = styled(Link)({
         display: "flex",
-        color: theme.palette.grey[600],
+         color: theme.palette.grey[600],
         textDecoration: "none",
     });
 
     const StyledActiveLink = styled(Link)({
-        color: theme.palette.primary.main,
+         color: theme.palette.primary.main,
     });
 
     return (

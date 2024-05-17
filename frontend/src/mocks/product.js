@@ -34,7 +34,7 @@ class ProductAPI{
                 }
             }
 
-            const {data} = await axios.post(`/api/product/${productId}/review/`, review, config);
+            const {data} = await axios.post(`/api/products/${productId}/reviews/`, review, config);
 
             return data;
 
