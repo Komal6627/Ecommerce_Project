@@ -12,6 +12,7 @@ import Shipping from './pages/Shipping';
 import Order from './pages/Order';
 import PlaceOrder from './pages/PlaceOrder';
 import CheckoutSteps from './components/CheckoutSteps';
+import Payment from './pages/Payment';
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
                         <Route path="/orderDetail" Component={Order} />
                         <Route path='/placeorder' Component={PlaceOrder}></Route>
                         <Route path='/check' Component={CheckoutSteps}/>
+                        <Route path='/payment' Component={Payment}></Route>
                    </Routes>
                 </main>
             </Container>
