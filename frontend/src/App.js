@@ -13,6 +13,7 @@ import Order from './pages/Order';
 import PlaceOrder from './pages/PlaceOrder';
 import CheckoutSteps from './components/CheckoutSteps';
 import Payment from './pages/Payment';
+import Profile from './pages/Profile';
 
 
 
@@ -37,6 +38,7 @@ const App = () => {
                         <Route path='/placeorder' Component={PlaceOrder}></Route>
                         <Route path='/check' Component={CheckoutSteps}/>
                         <Route path='/payment' Component={Payment}></Route>
+                        <Route path='/profile' Component={Profile}/>
                    </Routes>
                 </main>
             </Container>

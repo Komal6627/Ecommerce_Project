@@ -58,9 +58,12 @@ const Product = ({ match }) => {
   };
 
   const submitHandler = (e) => {
+    console.log("Submit Review");
     e.preventDefault();
     dispatch(createReview(id, { rating, comment }));
-  };
+    console.log("Rating", rating);
+    console.log("Comment", comment);
+};
 
   return (
     <div className="m-10 ">

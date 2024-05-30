@@ -43,7 +43,7 @@ def getProducts(request):
 
 @api_view(['GET'])
 def getTopProduct(request):
-    products = Product.objects.filter(rating__gte=4).order_by('-rating')[:5]
+    products = Product.objects.filter(rating__gte= 4).order_by('-rating')[:5]
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
@@ -66,7 +66,8 @@ def createProductReview(request, pk):  # sourcery skip: sum-comprehension, use-n
     data = request.data
 
     #1. Review already exists
-    alreadyExist = product.review_set.filter(user = user).exist()
+    alreadyExist = product.review_set.filter(user = user).exists()
+
 
     if alreadyExist:
         content =  {'details': 'Product already review'}

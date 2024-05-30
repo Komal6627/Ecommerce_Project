@@ -9,6 +9,7 @@ import logo from "../images/logo.png"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchBox from "./Searchbox";
 import Star from "./star";
+import { ShoppingCart } from "@mui/icons-material";
 
 
 const Header = () =>{
@@ -72,8 +73,7 @@ const Header = () =>{
 
                     <div>
                         <IconButton aria-label="show-cart-items" color="inherit" component={Link} to="/cart" style={{color: "white"}}> 
-                            Shoppingcart Component
-                         
+                            <ShoppingCart/>
                         </IconButton>
                     </div>
                     {console.log(userDetails)}
