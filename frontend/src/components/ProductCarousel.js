@@ -23,11 +23,12 @@ const ProductCarousel=()=>{
     ) : error ? (
         <Message variant="danger">{error}</Message>
     ) : (
-        <Carousel style={{height: "300px" }} pause="hover" className="bg-dark" interval={5000}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "400px" }}>
+            <Carousel style={{ width:"400px" }} pause="hover" className="bg-dark" interval={5000 } >
             {product.map((product) => (
                 <Carousel.Item key={product._id}>
                     <Link to={`/product/${product._id}`}>
-                        <Image src={product.image} style={{height:"250", width: "250"}}/>
+                        <Image src={product.image} style={{height:"250px", width: "200px",  objectFit: "cover"}}/>
                         <Carousel.Caption className="carousel-caption">
                             <h4>{product.name} (₹{product.price})</h4>
                         </Carousel.Caption>
@@ -35,6 +36,8 @@ const ProductCarousel=()=>{
                 </Carousel.Item>
             ))}
         </Carousel>
+        </div>
+        
     )
 
 }   

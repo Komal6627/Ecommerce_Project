@@ -15,7 +15,7 @@ import {
   Form,
 } from "react-bootstrap";
 import Loader from "../components/Loader";
-const Product = ({ match }) => {
+const Product = () => {
   const { id } = useParams();
 
   const [qty, setQty] = useState(1);
@@ -77,7 +77,7 @@ const Product = ({ match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <div>
-          <Row>
+          <Row >
             <Col md={3}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>

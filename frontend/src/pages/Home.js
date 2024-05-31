@@ -10,6 +10,7 @@ import Product from "../components/Product"
 import Paginate from "../components/Paginate"
 import { useLocation } from "react-router-dom";
 
+
 const Home = () =>{
     const dispatch = useDispatch();
     const productList = useSelector((state) => state.product.productList);
@@ -19,6 +20,7 @@ const Home = () =>{
     const {pageNumber} = useParams()
     const {products : topProducts, loading: topLoading, error: topError } = topRatedProducts;
     console.log(productList);
+    console.log("topRatedProducts:", topRatedProducts);
 
     // let keyword = useNavigate();
     // console.log(keyword);
@@ -31,6 +33,8 @@ const Home = () =>{
     useEffect(() => {
         dispatch(fetchProductList())
     }, [dispatch, keyword, pageNumber])
+
+
 
     return(
         <div>
@@ -53,13 +57,14 @@ const Home = () =>{
                 <Message variant="danger">{error}</Message>
             ): (
                 <div>
-                    <Row>
+                    <div   style={{ display: "flex", flexWrap: "wrap"}}>
                         {products.map((product) => (
-                            <Col key={product._id} sm={12} md={6} lg= {4} xl={3}>
-                                <Product product={product}/>
+                            <Col key={product._id} sm={12} md={6} lg= {4} xl={3} style={{ flex: "0 0 calc(25% - 30px)", margin: "15px" }}>
+                                <Product product={product} />
                             </Col>
+                        
                         ))}
-                    </Row>
+                    </div>
                 </div>
             )}
 

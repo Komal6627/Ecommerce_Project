@@ -84,6 +84,7 @@ class ProductAPI{
     async getTopRatedProducts(){
         try {
             const { data } = await axios.get(`/api/products/top/`);
+            console.log("Top Product:", data)
             return data;
         } catch (error) {
             throw error.message && error.response.data.detail ? error.response.data.detail : error.message

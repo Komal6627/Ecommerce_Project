@@ -56,7 +56,7 @@ const productSlice = createSlice({
         },
         productTopSuccess(state, action){
             state.topRatedProducts.loading = false;
-            state.topRatedProducts.products = action.payload;
+            state.topRatedProducts.product = action.payload;
         },
         productTopFailure(state, action){
             state.topRatedProducts.loading = false;
