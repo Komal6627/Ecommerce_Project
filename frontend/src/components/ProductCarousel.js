@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux"
 import {fetchTopRatedProducts} from "../redux/slices/productSlice"
 import Loader from "./Loader";
 import Message from "./Message";
-import {Carousel, Image} from "react-bootstrap"
+import Carousel from 'react-bootstrap/Carousel';
+import { CarouselCaption, Image} from "react-bootstrap"
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -23,21 +24,25 @@ const ProductCarousel=()=>{
     ) : error ? (
         <Message variant="danger">{error}</Message>
     ) : (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "400px" }}>
-            <Carousel style={{ width:"400px" }} pause="hover" className="bg-dark" interval={5000 } >
+       
+            <Carousel style={{ height:"300px"}} pause="hover" className="bg-dark" interval={5000 } >
             {product.map((product) => (
                 <Carousel.Item key={product._id}>
-                    <Link to={`/product/${product._id}`}>
-                        <Image src={product.image} style={{height:"250px", width: "200px",  objectFit: "cover"}}/>
-                        <Carousel.Caption className="carousel-caption">
-                            <h4>{product.name} (₹{product.price})</h4>
-                        </Carousel.Caption>
-                    </Link>
+                   <Link to={`/product/${product._id}`} style={{ display: 'flex',flexDirection: 'column', alignItems: 'center', textDecoration: 'none' }}>
+              <div style={{ marginBottom: '10px' }}>
+                <Image
+                  src={product.image}
+                  style={{ height: '200px', width: '200px', objectFit: 'cover', borderRadius: '50%',  marginBottom: '10px' }}
+                  alt={product.name}
+                />
+              </div>
+              <div style={{ textAlign: 'center', color: "white"}} >
+                <h4 >{product.name} (₹{product.price})</h4>
+              </div>
+            </Link>
                 </Carousel.Item>
             ))}
-        </Carousel>
-        </div>
-        
+        </Carousel> 
     )
 
 }   
