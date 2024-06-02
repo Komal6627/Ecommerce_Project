@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import {removeFromCart} from "../redux/slices/cartSlice"
+import { FaTrashAlt } from "react-icons/fa";
 
 const Cart = () =>{
     const dispatch = useDispatch();
@@ -44,8 +45,8 @@ const Cart = () =>{
                                     <Col>{item.qty}</Col>
                                     <Col> ₹{item.price}</Col>
                                     <Col md={1}>
-                                        <Button type="button" variant="light" onClick={() => removeFromCartHandler(item._id)}>
-                                            <i className="fas fas trash"></i>
+                                        <Button type="button" variant="light" onClick={() => removeFromCartHandler(item._id)} >
+                                        <FaTrashAlt style={{color: "red"}} />
                                         </Button>
                                     </Col>
                                 </Row>
