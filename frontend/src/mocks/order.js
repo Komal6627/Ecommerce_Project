@@ -1,6 +1,8 @@
 import axios from "axios";
 
 class OrderAPI {
+   
+    
     createOrder = async (order) => {
         try {
             const {token} = JSON.parse(localStorage.getItem("userInfo"));
@@ -30,8 +32,8 @@ class OrderAPI {
                     Authorization: `Bearer ${token}`,
                 }
             }
-
-            const { data } = await axios.get(`/api/orders/${id}`, config);
+            console.log(`Data getOrder Details`+`/api/orders/${id}/`); 
+            const { data } = await axios.get(`/api/orders/${id}/`, config);
 
             return data;
 

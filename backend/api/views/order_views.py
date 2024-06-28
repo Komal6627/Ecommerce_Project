@@ -17,9 +17,9 @@ def addOrderItem(request):  # sourcery skip: remove-unnecessary-else
     user  = request.user
     data = request.data
     print(data)
-    orderItems = data['orderItems']
+    orderItems = data.get('orderItems', [])
 
-    if orderItems and len(orderItems) == 0:
+    if not orderItems:
         return Response({'detail': 'No Order Items', "status": status.HTTP_400_BAD_REQUEST})
     else:
         #1. Create Order
@@ -27,22 +27,22 @@ def addOrderItem(request):  # sourcery skip: remove-unnecessary-else
             user = user,
             paymentMethod = data['paymentMethod'],
             taxPrice = data['taxPrice'],
-            ShippingPrice = ['shippingPrice'],
+            shippingPrice = data.get('shippingPrice', 0),  # Provide a default value
             totalPrice = data['totalPrice']
         )
 
-    
         #2. Create Shipping Address
+        shipping_address = data.get('shippingAddress', {})
         shipping = ShippingAddress.objects.create(
             order = order,
-            address = data['shippingAddress']['address'],
-            city = data['shippingAddress']['city'],
-            postalCode = data['shippingAddress']['postalCode'],
-            country = data['ShippingAddress']['country']
-            )
+            address = shipping_address.get('address', ''),
+            city = shipping_address.get('city', ''),
+            postalCode = shipping_address.get('postalCode', ''),
+            country = shipping_address.get('country', ''),
+            shippingPrice = shipping_address.get('shippingPrice', 0)  # Provide a default value
+        )
 
         #3. Create orderItems items
-
         for i in orderItems:
             product = Product.objects.get(_id = i['_id'])
 
@@ -55,13 +55,13 @@ def addOrderItem(request):  # sourcery skip: remove-unnecessary-else
                 image = product.image.url,
             )
 
+            #4. Update stock 
+            product.countInStock -= int(item.qty)
+            product.save()
 
-        #4. Update stock 
-        product.countInStock -= int(item.qty)
-        product.save()
+        serializer = OrderSerializer(order, many = False)
+        return Response(serializer.data)
 
-    serializer = OrderSerializer(order, many = False)
-    return Response(serializer.data)
 
 
 @api_view(['GET'])

@@ -136,7 +136,7 @@ const Profile = () =>{
                                     )}
                                 </td>
                                 <td>
-                                    <LinkContainer to={'/orderDetail'}>
+                                    <LinkContainer to={`/orderDetail/${order._id}`}>
                                         <Button className="btn-sm" onClick={() => dispatch(getOrderDetails(order._id))}>Details</Button>
                                     </LinkContainer>
                                 </td>

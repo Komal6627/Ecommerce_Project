@@ -30,7 +30,7 @@ const Payment = () =>{
     const submitHandler = (e) =>{
         e.preventDefault()
 
-        dispatch(savePaymentMethod)
+        dispatch(savePaymentMethod(paymentMethod));
 
         navigate('/placeorder')
     }
@@ -46,7 +46,17 @@ const Payment = () =>{
                     </Form.Label>
 
                     <Col>
-                        <Form.Check type="radio" label="PayPal or Credit Card" id="paypal" name="payementMethod" checked onChange={(e) => setPaymentMethod(e.target.value)} ></Form.Check>
+                        {/* <Form.Check type="radio" label="PayPal or Credit Card" id="paypal" name="payementMethod" checked onChange={(e) => setPaymentMethod(e.target.value)} ></Form.Check> */}
+
+                        <Form.Check
+                            type="radio"
+                            label="PayPal or Credit Card"
+                            id="paypal"
+                            name="paymentMethod"
+                            value="PayPal"
+                            checked={paymentMethod === "PayPal"}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                        ></Form.Check>
                     </Col>
                 </Form.Group>
 

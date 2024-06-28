@@ -33,10 +33,12 @@ const App = () => {
                         <Route path='/cart/:id?' Component={Cart}/>
                         <Route path='/product/:id' Component={Product}></Route>
                         <Route path='/shipping' Component={Shipping}></Route>
-                        <Route path="/orderDetail" Component={Order} />
-                        <Route path='/placeorder' Component={PlaceOrder}></Route>
+                        {/* <Route path="/orderDetail" Component={Order} /> */}
+                        <Route path="/orderDetail/:id" Component={Order} />
+
+                        <Route path='/placeorder' Component={PlaceOrder}/>
                         <Route path='/check' Component={CheckoutSteps}/>
-                        <Route path='/payment' Component={Payment}></Route>
+                        <Route path='/payment' Component={Payment}/>
                         <Route path='/profile' Component={Profile}/>
                    </Routes>
                 </main>

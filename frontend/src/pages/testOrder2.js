@@ -201,7 +201,7 @@ const Order = () => {
               </ListGroup.Item>
               {!orderDetails.isPaid && (
                 <ListGroup.Item>
-                  {/* {loading && <Loader />} */}
+                  {loading && <Loader />}
                   {!sdkReady ? (
                     <Loader />
                   ) : (

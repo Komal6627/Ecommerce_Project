@@ -5,8 +5,10 @@ const cartSlice = createSlice({
     name: "cart",
     initialState : {
        cartItems : JSON.parse(localStorage.getItem('cartItems')) || [], 
-       shippingAddress : {},
-       paymentMethod: {},
+    //    shippingAddress : {},
+    //    paymentMethod: {},
+    shippingAddress: JSON.parse(localStorage.getItem('shippingAddress')) || {},
+    paymentMethod: localStorage.getItem('paymentMethod') || '',
     },
     reducers : {
         setCartItems(state, action){

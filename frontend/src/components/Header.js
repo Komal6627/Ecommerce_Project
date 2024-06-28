@@ -17,8 +17,8 @@ const Header = () =>{
 
     const Appbar = styled(AppBar)({
         //  backgroundColor : "#039be5"
-        backgroundColor: "#6200ea"
-      //  backgroundColor: "#448aff"
+        // backgroundColor: "#6200ea"
+        backgroundColor: "#0b5ed7"
     })
 
     const StyleDiv = styled('div')({

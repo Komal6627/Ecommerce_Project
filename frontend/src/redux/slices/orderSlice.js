@@ -1,5 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import orderAPI from '../../mocks/order';
+
+// Async thunk for creating an order
+// export const createOrder = createAsyncThunk(
+//   'order/createOrder',
+//   async (order, { rejectWithValue }) => {
+//     try {
+//       const createdOrder = await orderAPI.createOrder(order);
+//       localStorage.removeItem("cartItems");
+//       return createdOrder;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 const initialState = {
   listorder: [],
@@ -20,51 +34,47 @@ const orderSlice = createSlice({
       state.orderDetails = action.payload;
       state.loading = false;
       state.error = null;
-      console.log(action.payload)
+      console.log('Order details fetched successfully:', action.payload);
     },
     getOrderDetailsFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+      console.error('Failed to fetch order details:', action.payload);
     },
     createOrderStart(state) {
-      console.log(state)
       state.loading = true;
       state.error = null;
+      console.log('Creating order...');
     },
     createOrderSuccess(state, action) {
       state.listorder.push(action.payload);
       state.orderDetails = action.payload;
       state.loading = false;
       state.error = null;
-      console.log(state, action)
-
+      console.log('Order created successfully:', action.payload);
     },
     createOrderFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
-      console.log(state, action)
-
+      console.error('Failed to create order:', action.payload);
     },
     payOrderStart(state) {
       state.loading = true;
       state.error = null;
+      console.log('Paying for order...');
     },
     payOrderSuccess(state, action) {
       if (action.payload === 'Order was paid') {
-        state.orderDetails.isPaid = true; // Update the 'isPaid' property of 'orderDetails'
+        state.orderDetails.isPaid = true;
       }
-    
       state.loading = false;
       state.error = null;
-      console.log(action.payload);
-      console.log(state.orderDetails);
-      
-      return state; // Return the updated state
+      console.log('Order payment successful:', action.payload);
     },
-    
     payOrderFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+      console.error('Failed to pay for order:', action.payload);
     },
     listMyOrdersStart(state) {
       state.loading = true;
@@ -74,10 +84,12 @@ const orderSlice = createSlice({
       state.listorder = action.payload;
       state.loading = false;
       state.error = null;
+      console.log('My orders listed successfully:', action.payload);
     },
     listMyOrdersFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+      console.error('Failed to list my orders:', action.payload);
     },
     listOrdersStart(state) {
       state.loading = true;
@@ -87,10 +99,12 @@ const orderSlice = createSlice({
       state.listorder = action.payload;
       state.loading = false;
       state.error = null;
+      console.log('Orders listed successfully:', action.payload);
     },
     listOrdersFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+      console.error('Failed to list orders:', action.payload);
     },
     deliverOrderStart(state) {
       state.loading = true;
@@ -104,10 +118,12 @@ const orderSlice = createSlice({
       }
       state.loading = false;
       state.error = null;
+      console.log('Order delivered successfully:', updatedOrder);
     },
     deliverOrderFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+      console.error('Failed to deliver order:', action.payload);
     },
   },
 });
@@ -139,8 +155,10 @@ export const createOrder = (order) => async (dispatch) => {
     const createdOrder = await orderAPI.createOrder(order);
     dispatch(createOrderSuccess(createdOrder));
     localStorage.removeItem("cartItems");
+    return createdOrder; 
   } catch (error) {
     dispatch(createOrderFailure(error.message));
+    console.error('Create order error:', error.message);
   }
 };
 
@@ -148,10 +166,10 @@ export const getOrderDetails = (orderId) => async (dispatch) => {
   try {
     dispatch(getOrderDetailsStart());
     const orderDetails = await orderAPI.getOrderDetails(orderId);
-    console.log(orderId)
     dispatch(getOrderDetailsSuccess(orderDetails));
   } catch (error) {
     dispatch(getOrderDetailsFailure(error.message));
+    console.error('Get order details error:', error.message);
   }
 };
 
@@ -162,6 +180,7 @@ export const payOrder = (orderId, paymentResult) => async (dispatch) => {
     dispatch(payOrderSuccess(updatedOrder));
   } catch (error) {
     dispatch(payOrderFailure(error.message));
+    console.error('Pay order error:', error.message);
   }
 };
 
@@ -172,6 +191,7 @@ export const listMyOrders = () => async (dispatch) => {
     dispatch(listMyOrdersSuccess(myOrders));
   } catch (error) {
     dispatch(listMyOrdersFailure(error.message));
+    console.error('List my orders error:', error.message);
   }
 };
 
@@ -182,6 +202,7 @@ export const listOrders = () => async (dispatch) => {
     dispatch(listOrdersSuccess(allOrders));
   } catch (error) {
     dispatch(listOrdersFailure(error.message));
+    console.error('List orders error:', error.message);
   }
 };
 
@@ -192,6 +213,7 @@ export const deliverOrder = (orderId) => async (dispatch) => {
     dispatch(deliverOrderSuccess(updatedOrder));
   } catch (error) {
     dispatch(deliverOrderFailure(error.message));
+    console.error('Deliver order error:', error.message);
   }
 };
 
