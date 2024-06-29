@@ -62,24 +62,26 @@ class OrderAPI {
         }
     }
 
-    listOrder = async () => {
+    listMyOrders = async () => {
         try {
-            const {token} = JSON.parse(localStorage.getItem("userInfo"))
-            
-            const config = {
-                headers:{
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                }
-            }
-
-            const { data } = await axios.get(`/api/orders/myorders/`, config);
-
-            return data;
+          const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    
+          const config = {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
+    
+          const { data } = await axios.get(`/api/orders/myorders/`, config);
+    
+          return data;
         } catch (error) {
-            throw error.response && error.response.data.detail ? error.response.data.detail : error.message;
+          throw error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message;
         }
-    }
+      };
 
     deliverOrder = async(order) => {
         try {

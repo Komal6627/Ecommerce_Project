@@ -187,11 +187,10 @@ export const payOrder = (orderId, paymentResult) => async (dispatch) => {
 export const listMyOrders = () => async (dispatch) => {
   try {
     dispatch(listMyOrdersStart());
-    const myOrders = await orderAPI.listMyOrders();
+    const myOrders = await orderAPI.listMyOrders()
     dispatch(listMyOrdersSuccess(myOrders));
   } catch (error) {
     dispatch(listMyOrdersFailure(error.message));
-    console.error('List my orders error:', error.message);
   }
 };
 
