@@ -9,7 +9,7 @@ import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Shipping from './pages/Shipping';
-import Order from './pages/Order';
+import Order from './pages/testOrder2';
 import PlaceOrder from './pages/PlaceOrder';
 import CheckoutSteps from './components/CheckoutSteps';
 import Payment from './pages/Payment';

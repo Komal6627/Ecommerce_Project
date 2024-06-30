@@ -49,6 +49,9 @@ const Order = () => {
         setSdkReady(true);
       }
     }
+
+    // Log the orderDetails object
+    console.log(orderDetails);
   }, [dispatch, orderId, orderDetails?._id, orderDetails?.isPaid, navigate, userDetails, sdkReady]);
 
   const successPaymentHandler = (paymentResult) => {
@@ -68,16 +71,16 @@ const Order = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              {orderDetails.User && (
+              {orderDetails.user && (
                 <p>
-                  <strong>Name: {orderDetails.User.name}</strong>
+                  <strong>Name: {orderDetails.user.name}</strong>
                 </p>
               )}
               <p>
                 <strong>Email:</strong>{" "}
-                {orderDetails.User && orderDetails.User.username ? (
-                  <a href={`mailto:${orderDetails.User.username}`}>
-                    {orderDetails.User.username}
+                {orderDetails.user && orderDetails.user.username ? (
+                  <a href={`mailto:${orderDetails.user.username}`}>
+                    {orderDetails.user.username}
                   </a>
                 ) : (
                   "Not available"
@@ -96,7 +99,7 @@ const Order = () => {
                   "Address not available"
                 )}
               </p>
-              {orderDetails.isDeliver ? (
+              {orderDetails.isDelivered ? (
                 <Message variant="success">
                   Delivered on{" "}
                   {orderDetails.deliveredAt

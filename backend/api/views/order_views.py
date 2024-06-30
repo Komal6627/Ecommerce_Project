@@ -39,7 +39,7 @@ def addOrderItem(request):  # sourcery skip: remove-unnecessary-else
             city = shipping_address.get('city', ''),
             postalCode = shipping_address.get('postalCode', ''),
             country = shipping_address.get('country', ''),
-            shippingPrice = shipping_address.get('shippingPrice', 0)  # Provide a default value
+            shippingPrice = shipping_address.get('shippingPrice',10)  # Provide a default value
         )
 
         #3. Create orderItems items

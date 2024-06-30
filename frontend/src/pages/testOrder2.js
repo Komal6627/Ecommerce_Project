@@ -25,7 +25,8 @@ const Order = () => {
     const addPayPalScript = () => {
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = "https://www.paypal.com/sdk/js?client-id=AW3tzRvnb-rXU4fLHh83fyByJ18kFW5jt5tYFAgW5xdQyuNqCFXZ6-29b4PZ75pv-qUMX1h8ZpyF4bt7";
+      script.src =
+        "https://www.paypal.com/sdk/js?client-id=AW3tzRvnb-rXU4fLHh83fyByJ18kFW5jt5tYFAgW5xdQyuNqCFXZ6-29b4PZ75pv-qUMX1h8ZpyF4bt7";
       script.async = true;
       script.onload = () => {
         console.log("PayPal SDK loaded");
@@ -44,11 +45,16 @@ const Order = () => {
       dispatch(getOrderDetails(orderId));
     } else if (!orderDetails.isPaid && !sdkReady) {
       if (!window.paypal) {
+        console.log("Adding PayPal script...");
         addPayPalScript();
       } else {
+        console.log("PayPal script already loaded.");
         setSdkReady(true);
       }
     }
+
+    // Log the orderDetails object
+    console.log("orderDetails:", orderDetails);
   }, [dispatch, orderId, orderDetails?._id, orderDetails?.isPaid, navigate, userDetails, sdkReady]);
 
   const successPaymentHandler = (paymentResult) => {
@@ -68,16 +74,16 @@ const Order = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              {orderDetails.User && (
+              {orderDetails.user && (
                 <p>
-                  <strong>Name: {orderDetails.User.name}</strong>
+                  <strong>Name: {orderDetails.user.name}</strong>
                 </p>
               )}
               <p>
                 <strong>Email:</strong>{" "}
-                {orderDetails.User && orderDetails.User.username ? (
-                  <a href={`mailto:${orderDetails.User.username}`}>
-                    {orderDetails.User.username}
+                {orderDetails.user && orderDetails.user.username ? (
+                  <a href={`mailto:${orderDetails.user.username}`}>
+                    {orderDetails.user.username}
                   </a>
                 ) : (
                   "Not available"
@@ -96,7 +102,7 @@ const Order = () => {
                   "Address not available"
                 )}
               </p>
-              {orderDetails.isDeliver ? (
+              {orderDetails.isDelivered ? (
                 <Message variant="success">
                   Delivered on{" "}
                   {orderDetails.deliveredAt
@@ -184,31 +190,35 @@ const Order = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col>&#8377;{orderDetails.shippingPrice}</Col>
+                  <Col>
+                    {orderDetails.shippingPrice !== undefined
+                      ? `₹${Number(orderDetails.shippingPrice).toFixed(2)}`
+                      : "Not available"}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
-                  <Col>&#8377;{orderDetails.taxPrice}</Col>
+                  <Col>&#8377;{Number(orderDetails.taxPrice).toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>&#8377;{orderDetails.totalPrice}</Col>
+                  <Col>&#8377;{Number(orderDetails.totalPrice).toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               {!orderDetails.isPaid && (
                 <ListGroup.Item>
                   {loading && <Loader />}
                   {!sdkReady ? (
-                    <Loader />
-                  ) : (
                     <PayPalButton
-                      amount={orderDetails.totalPrice}
+                      amount={Number(orderDetails.totalPrice).toFixed(2)}
                       onSuccess={successPaymentHandler}
                     />
+                  ) : (
+                    <Loader />
                   )}
                 </ListGroup.Item>
               )}
