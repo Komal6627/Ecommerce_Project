@@ -28,9 +28,9 @@ const Cart = () =>{
             <Col md={8}>
                 <h1>Shopping Cart</h1>
                 {cartItems.length === 0 ? (
-                   <Message variant= "info">
+                   <h4 variant= "info" >
                         Your cart is empty.<Link to="/">Go Back</Link>
-                   </Message>
+                   </h4>
                 ): (
                     <ListGroup variant="flush">
                         {cartItems.map((item) => (

@@ -4,16 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { payOrder, getOrderDetails } from "../redux/slices/orderSlice";
-import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import PayPalButton from "../components/PaypalButton";
 
 const Order = () => {
   const { id: orderId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [sdkReady, setSdkReady] = useState(false);
 
   const order = useSelector((state) => state.order);
   const { orderDetails, error, loading } = order;
@@ -22,37 +20,13 @@ const Order = () => {
   const { userDetails } = userLogin;
 
   useEffect(() => {
-    const addPayPalScript = () => {
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "https://www.paypal.com/sdk/js?client-id=AW3tzRvnb-rXU4fLHh83fyByJ18kFW5jt5tYFAgW5xdQyuNqCFXZ6-29b4PZ75pv-qUMX1h8ZpyF4bt7";
-      script.async = true;
-      script.onload = () => {
-        console.log("PayPal SDK loaded");
-        setSdkReady(true);
-      };
-      script.onerror = () => {
-        console.error("PayPal SDK failed to load");
-      };
-      document.body.appendChild(script);
-    };
-
     if (!userDetails) {
       navigate("/login");
     } else if (!orderDetails || orderDetails._id !== orderId) {
-      console.log("Dispatching getOrderDetails for orderId:", orderId);
+      console.log("Fetching order details...");
       dispatch(getOrderDetails(orderId));
-    } else if (!orderDetails.isPaid && !sdkReady) {
-      if (!window.paypal) {
-        addPayPalScript();
-      } else {
-        setSdkReady(true);
-      }
     }
-
-    // Log the orderDetails object
-    console.log(orderDetails);
-  }, [dispatch, orderId, orderDetails?._id, orderDetails?.isPaid, navigate, userDetails, sdkReady]);
+  }, [dispatch, orderId, orderDetails?._id, orderDetails?.isPaid, navigate, userDetails]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log("Payment successful:", paymentResult);
@@ -114,8 +88,7 @@ const Order = () => {
             <ListGroup.Item>
               <h2>Payment</h2>
               <p>
-                <strong>Payment Method</strong>
-                {orderDetails.paymentMethod}
+                <strong>Payment Method:</strong> {orderDetails.paymentMethod}
               </p>
               {orderDetails.isPaid ? (
                 <Message variant="success">
@@ -187,32 +160,31 @@ const Order = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col>&#8377;{orderDetails.shippingPrice}</Col>
+                  <Col>
+                    {orderDetails.shippingPrice !== undefined
+                      ? `₹${Number(orderDetails.shippingPrice).toFixed(2)}`
+                      : "Not available"}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
-                  <Col>&#8377;{orderDetails.taxPrice}</Col>
+                  <Col>&#8377;{Number(orderDetails.taxPrice).toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>&#8377;{orderDetails.totalPrice}</Col>
+                  <Col>&#8377;{Number(orderDetails.totalPrice).toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               {!orderDetails.isPaid && (
                 <ListGroup.Item>
-                  {/* {loading && <Loader />} */}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                    <PayPalButton
-                      amount={orderDetails.totalPrice}
-                      onSuccess={successPaymentHandler}
-                    />
-                  )}
+                  <PayPalButton
+                    amount={Number(orderDetails.totalPrice).toFixed(2)}
+                    onSuccess={successPaymentHandler}
+                  />
                 </ListGroup.Item>
               )}
             </ListGroup>

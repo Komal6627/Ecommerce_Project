@@ -215,6 +215,7 @@ const Product = () => {
                         disabled={loadingProductReview}
                         type="submit"
                         variant="primary"
+                        style={{marginTop:"2px"}}
                       >
                         Submit
                       </Button>

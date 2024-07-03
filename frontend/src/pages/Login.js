@@ -12,18 +12,7 @@ import {useNavigate} from "react-router-dom"
 const Login = () => {
      const theme = useTheme();
 
-    //  const StyledForm = styled('form')(
-    //     {
-    //         width: "100% ",
-    //         marginTop: theme.spacing(1)
-    //     },
-    //  )
-    //  const StyledButton = styled(Button)(
-    //        { 
-    //         margin: theme.spacing(3,0,2)
-    //     }
-        
-    //  )
+ 
       const [email, setEmail] =   useState('')
       const [password, setPassword] = useState('')
       const navigate = useNavigate()
@@ -41,13 +30,7 @@ const Login = () => {
         }
     },[navigate, userDetails, redirect])
 
-    // const submitHandler = (e) =>{
-    //     e.preventDefault();
-    //     console.log(email, password);
-    //     // dispatch(email, password); 
-    //     dispatch(login({ email, password }));       
-    // }
-
+   
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
@@ -67,7 +50,7 @@ const Login = () => {
             </Typography>
             {error && <Message></Message>}
             {loading && <Loader/>}
-            <form onSubmit={submitHandler} style={{width: "100%", marginTop: "3px"}}> 
+            <form onSubmit={submitHandler} INR={{width: "100%", marginTop: "3px"}}> 
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField variant="filled" required  id="email" label="Email Address" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -78,7 +61,7 @@ const Login = () => {
                     </Grid>
                 </Grid>
 
-                <button type="submit"  variant="outline" style={{color:"blue"}}>
+                <button type="submit" variant="outline" style={{margin:"4px",borderRadius:"17%", borderColor:"white", padding:"8px", backgroundColor:"#0b5ed7", color:"white", marginTop:"6px"}}>
                     Sign In
                 </button>
 

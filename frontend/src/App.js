@@ -9,7 +9,7 @@ import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Shipping from './pages/Shipping';
-import Order from './pages/testOrder2';
+import Order from './pages/Order';
 import PlaceOrder from './pages/PlaceOrder';
 import CheckoutSteps from './components/CheckoutSteps';
 import Payment from './pages/Payment';
@@ -33,9 +33,7 @@ const App = () => {
                         <Route path='/cart/:id?' Component={Cart}/>
                         <Route path='/product/:id' Component={Product}></Route>
                         <Route path='/shipping' Component={Shipping}></Route>
-                        {/* <Route path="/orderDetail" Component={Order} /> */}
                         <Route path="/orderDetail/:id" Component={Order} />
-
                         <Route path='/placeorder' Component={PlaceOrder}/>
                         <Route path='/check' Component={CheckoutSteps}/>
                         <Route path='/payment' Component={Payment}/>

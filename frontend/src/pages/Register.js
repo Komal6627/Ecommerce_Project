@@ -133,7 +133,7 @@ const Register = () => {
               type="submit"
               fullWidth
               variant="outlined"
-              style={{ color:"blue"}}
+              style={{margin:"7px",borderRadius:"18%", borderColor:"white", padding:"9px", backgroundColor:"#0b5ed7", color:"white",marginLeft:"18px"}}
             >
               Register
             </button>

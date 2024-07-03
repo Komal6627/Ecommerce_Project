@@ -3,15 +3,16 @@ import { AlertTitle } from '@mui/material';
 import { grey } from "@mui/material/colors";
 
 const StyleAlert = styled(AlertTitle)(({theme, variant}) =>({
-    backgroundColor: "black",
-    color: "white"
+    backgroundColor: "white",
+    color: "black",
+    fontWeight:"bold"
 }))
 
 const Message = ({variant, children}) =>{
     return(
         <StyleAlert variant={variant} serverity={variant}>
-            Message
-            {children}
+            Message:
+           {children}
         </StyleAlert>
     )
 }
