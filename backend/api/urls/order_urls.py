@@ -6,6 +6,7 @@ urlpatterns = [
     path('myorders/', getMyOrders, name="myorders"),
     path('<str:pk>/', getOrderById, name="user-order"),
     path('<str:pk>/pay/', updateOrderToPaid, name="pay"),  
+    path('<str:pk>/deliver/', updateOrderToDelivered, name="order-deliver")
 ]
 
 

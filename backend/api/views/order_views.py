@@ -4,10 +4,11 @@ from datetime import datetime
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.response import Response
-from rest_framework.serializers import Serializer
+from rest_framework.response import Response # type: ignore
+from rest_framework.serializers import Serializer # type: ignore
 from api.models import *
 from api.serializers import ProductSerializer, OrderSerializer
+from django.utils import timezone
 
 #views start from here
 
@@ -92,11 +93,29 @@ def getOrderById(request, pk):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateOrderToPaid(request, pk):
-    order = Order.objects.get(_id = pk)
-    order.isPaid = True
-    order.paidAt = datetime.now()
-    order.save()
-    return Response('Order was paid', status = status.HTTP_200_OK)
-    
+    try:
+        order = Order.objects.get(_id=pk)
+        order.isPaid = True
+        order.paidAt = datetime.datetime.now()
+        order.save()
+        return Response('Order was paid', status=status.HTTP_200_OK)
+    except Order.DoesNotExist:
+        return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({'detail': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToDelivered(request, pk):
+    try:
+        order = Order.objects.get(_id=pk)
+        order.isDelivered = True
+        order.deliveredAt = timezone.now()  # Ensure timezone-aware datetime
+        order.save()
+        return Response('Order was delivered', status=status.HTTP_200_OK)
+    except Order.DoesNotExist:
+        return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({'detail': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
