@@ -73,7 +73,7 @@ const Order = () => {
                   "Address not available"
                 )}
               </p>
-              {orderDetails.isDelivered ? (
+              {orderDetails.isDeliver ? (
                 <Message variant="success">
                   Delivered on{" "}
                   {orderDetails.deliveredAt

@@ -27,12 +27,14 @@ const PlaceOrder = () => {
   console.log("Items Price:", itemsPrice);
 
 
+  
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
   console.log("Shipping Price:", shippingPrice);
 
+
   const taxPrice = Number((0.082 * itemsPrice).toFixed(2));
 
-  const totalPrice = Number(itemsPrice) + shippingPrice + Number(taxPrice);
+  const totalPrice = Number(itemsPrice) + Number(shippingPrice) + Number(taxPrice);
 
   console.log("Total Price:", totalPrice);
 

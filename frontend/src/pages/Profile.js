@@ -154,7 +154,7 @@ const Profile = () => {
                                             ? order.createdAt.substring(0, 10)
                                             : null}
                                     </td>
-                                    <td>${order.totalPrice}</td>
+                                    <td>₹{order.totalPrice}</td>
                                     <td>
                                         {order.isPaid ? (
                                             order.paidAt ? (
@@ -168,7 +168,7 @@ const Profile = () => {
                                         )}
                                     </td>
                                     <td>
-                                        {order.isDelivered ? (
+                                        {order.isDeliver ? (
                                             order.deliveredAt ? (
                                                 order.deliveredAt.substring(0, 10)
                                             ) : null
