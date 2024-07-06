@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useTheme } from '@mui/material/styles';
 import { AppBar, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux"
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { logout } from "../redux/slices/userSlice";
 import { useState } from "react";
 import logo from "../images/logo.png"
@@ -12,6 +12,7 @@ import { ShoppingCart } from "@mui/icons-material";
 
 const Header = () => {
     const theme = useTheme();
+    const navigate = useNavigate()
 
     const Appbar = styled(AppBar)({
         backgroundColor: "#0b5ed7"
@@ -48,7 +49,8 @@ const Header = () => {
     const handleLogout = () => {
         dispatch(logout());
         handleMenuClose();
-        window.location.reload();
+         window.location.reload();
+        navigate('/');
     };
 
     return (
@@ -80,7 +82,7 @@ const Header = () => {
                                 <Menuitem component={Link} to="/profile" onClick={handleMenuClose}>
                                     Profile
                                 </Menuitem>
-                                <Menuitem component={Link} to="/" onClick={handleLogout}>
+                                <Menuitem onClick={handleLogout}>
                                     Logout
                                 </Menuitem>
                             </Menu>

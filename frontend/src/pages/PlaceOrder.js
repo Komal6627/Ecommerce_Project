@@ -28,7 +28,7 @@ const PlaceOrder = () => {
 
 
   
-  const shippingPrice = itemsPrice > 100 ? 0 : 10;
+  const shippingPrice = itemsPrice > 100 ? 10: 0;
   console.log("Shipping Price:", shippingPrice);
 
 

@@ -21,10 +21,10 @@ const Profile = () => {
     const { userDetails, loading, error } = user;
 
     const userData = {
-        id: userDetails._id,
+        id: userDetails ? userDetails._id : "",
         name: name,
         email: email,
-        password: password
+        password: password,
     };
 
     const order = useSelector((state) => state.order);
